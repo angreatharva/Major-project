@@ -21,6 +21,15 @@ class UserService {
       throw e;
     }
   }
+
+  static getAllUsers = async () => {
+    try {
+      const users = await UserModel.find();
+      return users;
+    } catch (e) {
+      throw e;
+    }
+  };
 }
 
 module.exports = UserService;

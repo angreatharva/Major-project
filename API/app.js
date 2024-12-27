@@ -16,6 +16,7 @@ app.use(bodyParser.json({ limit: "100mb" }));
 app.use(bodyParser.urlencoded({ limit: "100mb", extended: true }));
 
 app.post("/registerUser", userController.registerUser);
+app.get("/users", userController.getRegisteredUsers);
 
 app.post("/login", async (req, res) => {
   const { email, password } = req.body;
