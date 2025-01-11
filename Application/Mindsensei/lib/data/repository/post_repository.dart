@@ -1,0 +1,18 @@
+import '../provider/api.dart';
+
+class MyRepository {
+  final MyApiClient apiClient;
+
+  MyRepository({required this.apiClient}) : assert(apiClient != null);
+
+  registerUser(mapData) {
+    return apiClient.registerUser(mapData);
+  }
+
+  loginUser(userName, password) {
+    return apiClient.loginUser(userName, password);
+  }
+
+
+
+}
