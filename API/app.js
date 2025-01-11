@@ -7,7 +7,7 @@ const UserModel = require("./model/user.model");
 const app = express();
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: "http://192.168.0.104",
   })
 );
 app.use(express.json());
