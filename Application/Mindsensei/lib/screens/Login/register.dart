@@ -7,7 +7,6 @@ import 'package:get/get_state_manager/src/simple/get_view.dart';
 import '../../constants/appString.dart';
 import '../../constants/app_Colors.dart';
 import '../../controller/loginController.dart';
-import '../../custom_widgets/custom_drop_down.dart';
 import '../../routes/app_routes.dart';
 
 class Register extends GetView<LoginController> {
@@ -49,7 +48,7 @@ class Register extends GetView<LoginController> {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(20.0),
                       child: Image.asset(
-                        "assets/images/Mindsenei_1.png",
+                        "assets/images/mindsensei1.png",
                         height: Get.height * 0.15,
                       ),
                     ),
@@ -242,22 +241,4 @@ class Register extends GetView<LoginController> {
     });
   }
 
-  Widget _ageDropDown(controller) {
-    return Builder(builder: (context) {
-      return Obx(() => CustomDropDown(
-            dropdownList: controller.ageGroupList.value,
-            value: controller.selectedAgeGroup.value != ''
-                ? controller.selectedAgeGroup.value
-                : null,
-            selectedData: (value) async {
-              if (value == '0') {
-                print('SelectAge : $value');
-                controller.selectedAgeGroup.value = '';
-              } else {
-                controller.selectedAgeGroup.value = value;
-              }
-            },
-          ));
-    });
-  }
 }

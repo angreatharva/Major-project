@@ -26,7 +26,7 @@ class Splash extends GetView<LoginController> {
           Container(
             margin: EdgeInsets.symmetric(vertical: Get.height * 0.3),
             child: Image.asset(
-            "assets/images/Mindsenei_1.png",
+            "assets/images/mindsensei1.png",
             ),
           ),
         ]

@@ -6,52 +6,39 @@ plugins {
 }
 
 android {
-    namespace = "com.example.mindsensei" // Replace with your app's package name
-    compileSdk = 34 // Ensure you are targeting the latest SDK
+    namespace = "com.example.mindsensei"
+    compileSdk = 35
     ndkVersion = flutter.ndkVersion
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17 // Use Java 17 or 21
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
 
     kotlinOptions {
-        jvmTarget = "17" // Match Java compatibility
+        jvmTarget = '11'
     }
 
     defaultConfig {
-        // Replace with your unique Application ID
+        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId = "com.example.mindsensei"
-        // Flutter-specific configurations
-        minSdk = flutter.minSdkVersion
-        targetSdk = flutter.targetSdkVersion
+        // You can update the following values to match your application needs.
+        // For more information, see: https://flutter.dev/to/review-gradle-config.
+        minSdk =21
+        targetSdk = 35
         versionCode = flutter.versionCode
         versionName = flutter.versionName
     }
 
     buildTypes {
         release {
-            // Update with your release signing configuration
+            // TODO: Add your own signing config for the release build.
+            // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig = signingConfigs.debug
-            // Enable ProGuard for release builds
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-        debug {
-            // Ensure minify is disabled for debug builds
-            minifyEnabled false
         }
     }
 }
 
 flutter {
     source = "../.."
-}
-
-dependencies {
-    // Add dependencies specific to your project
-    implementation "androidx.core:core-ktx:1.10.1"
-    implementation "androidx.appcompat:appcompat:1.6.1"
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.6.1"
-    implementation "com.google.android.material:material:1.9.0"
 }

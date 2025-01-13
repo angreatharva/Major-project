@@ -41,7 +41,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     if (!_imagePrecached) {
-      precacheImage(const AssetImage("assets/images/bhausahebLogo.jpg"), context);
+      precacheImage(const AssetImage("assets/images/mindsensei1.png"), context);
       _imagePrecached = true;
     }
   }
@@ -73,7 +73,7 @@ class _SplashScreenState extends State<SplashScreen> {
           child: Hero(
             tag: 'logo',
             child: Image.asset(
-              "assets/images/bhausahebLogo.jpg",
+              "assets/images/mindsensei1.png",
               fit: BoxFit.contain,
             ),
           ),
