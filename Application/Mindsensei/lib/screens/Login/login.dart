@@ -57,85 +57,135 @@ class Login extends StatelessWidget {
 
               SizedBox(height: Get.height * 0.1),
 
-              // Username TextField
+              !controller.userSeletion.value ?
+                  Container(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        GestureDetector(
+                          onTap: (){
+                            controller.userSeletion.value =true;
+                            controller.userType.value = "doctor";
+                            controller.box.write('userType', "doctor");
+                          },
+                          child: Container(
+
+                            height:Get.height * 0.18,
+                            width:Get.width * 0.4,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                                color:Colors.red,
+                              borderRadius: BorderRadius.circular(10)
+                            ),
+                            child: Text("You are a Patient"),
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: (){
+                            controller.userSeletion.value =true;
+                            controller.userType.value = "patient";
+                            controller.box.write('userType', "patient");
+                          },
+                          child: Container(
+                            height:Get.height * 0.18,
+                            width:Get.width * 0.4,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                                color:Colors.green,
+                                borderRadius: BorderRadius.circular(10)
+                            ),
+                            child: Text("You are a Doctor"),
+                          ),
+                        )
+                      ],
+                    ),
+                  ):
               Container(
-                margin: EdgeInsets.symmetric(horizontal: 20.0),
-                child: TextFormField(
-                  controller: controller.emailLogin.value,
-                  decoration: InputDecoration(
-                    labelText: "Email",
-                    contentPadding: EdgeInsets.symmetric(horizontal: 20.0),
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.green),
-                      borderRadius: BorderRadius.circular(8.0),
+                child: Column(
+                  children: [
+                    // Username TextField
+                    Container(
+                      margin: EdgeInsets.symmetric(horizontal: 20.0),
+                      child: TextFormField(
+                        controller: controller.emailLogin.value,
+                        decoration: InputDecoration(
+                          labelText: "Email",
+                          contentPadding: EdgeInsets.symmetric(horizontal: 20.0),
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.green),
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
+
+                    SizedBox(height: Get.height * 0.02),
+
+                    // Password TextField
+                    Container(
+                      margin: EdgeInsets.symmetric(horizontal: 20.0),
+                      child: TextFormField(
+                        controller: controller.passwordLogin.value,
+                        decoration: InputDecoration(
+                          labelText: "Password",
+                          contentPadding: EdgeInsets.symmetric(horizontal: 20.0),
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.red),
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                        ),
+                      ),
+                    ),
+
+                    SizedBox(height: Get.height * 0.02),
+
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ElevatedButton(
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(AppColors.black),
+                            shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0))),
+                          ),
+                          onPressed: () {
+                            print("userName :${controller.emailLogin.value.text}");
+                            print("password :${controller.passwordLogin.value.text}");
+                            controller.loginUser(controller.emailLogin.value.text,
+                                controller.passwordLogin.value.text);
+                          },
+                          child: Text(
+                            "Login",
+                            style: TextStyle(color: AppColors.white),
+                          ),
+                        ),
+
+                        SizedBox(width: Get.width * 0.05),
+
+                        ElevatedButton(
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(AppColors.black),
+                            shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0))),
+                          ),
+                          onPressed: () {
+                            print("userName :${controller.emailLogin.value.text}");
+                            print("password :${controller.passwordLogin.value.text}");
+                            // controller.loginUser(controller.userNameLogin.value.text,
+                            //     controller.passwordLogin.value.text);
+                            Get.toNamed(Routes.REGISTER);
+                          },
+                          child: Text(
+                            "Register",
+                            style: TextStyle(color: AppColors.white),
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
                 ),
-              ),
-
-              SizedBox(height: Get.height * 0.02),
-
-              // Password TextField
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 20.0),
-                child: TextFormField(
-                  controller: controller.passwordLogin.value,
-                  decoration: InputDecoration(
-                    labelText: "Password",
-                    contentPadding: EdgeInsets.symmetric(horizontal: 20.0),
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.red),
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                  ),
-                ),
-              ),
-
-              SizedBox(height: Get.height * 0.02),
-
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ElevatedButton(
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(AppColors.black),
-                      shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0))),
-                    ),
-                    onPressed: () {
-                      print("userName :${controller.emailLogin.value.text}");
-                      print("password :${controller.passwordLogin.value.text}");
-                      controller.loginUser(controller.emailLogin.value.text,
-                          controller.passwordLogin.value.text);
-                    },
-                    child: Text(
-                      "Login",
-                      style: TextStyle(color: AppColors.white),
-                    ),
-                  ),
-
-                  SizedBox(width: Get.width * 0.05),
-
-                  ElevatedButton(
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(AppColors.black),
-                      shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0))),
-                    ),
-                    onPressed: () {
-                      print("userName :${controller.emailLogin.value.text}");
-                      print("password :${controller.passwordLogin.value.text}");
-                      // controller.loginUser(controller.userNameLogin.value.text,
-                      //     controller.passwordLogin.value.text);
-                      Get.toNamed(Routes.REGISTER);
-                    },
-                    child: Text(
-                      "Register",
-                      style: TextStyle(color: AppColors.white),
-                    ),
-                  ),
-                ],
               )
+
 
             ],
           );

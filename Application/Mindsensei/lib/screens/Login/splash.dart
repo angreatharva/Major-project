@@ -10,6 +10,8 @@ import '../../routes/app_routes.dart';
 
 class Splash extends GetView<LoginController> {
 
+  double _initialSize = 100.0; // Initial size of the logo
+
   @override
   Widget build(BuildContext context) {
 
@@ -19,17 +21,19 @@ class Splash extends GetView<LoginController> {
     // });
     return Scaffold(
       backgroundColor: AppColors.colorPrimary,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children:[
-          Container(
-            margin: EdgeInsets.symmetric(vertical: Get.height * 0.3),
+      body: Center(
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 500),
+          width: _initialSize,
+          height: _initialSize,
+          child: Hero(
+            tag: 'logo',
             child: Image.asset(
-            "assets/images/mindsensei1.png",
+              "assets/images/mindsensei1.png",
+              fit: BoxFit.contain,
             ),
           ),
-        ]
+        ),
       ),
     );
   }

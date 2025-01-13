@@ -23,11 +23,14 @@ class LoginController extends GetxController with SingleGetTickerProviderMixin {
   Rx<TextEditingController> passwordLogin = TextEditingController().obs;
 
   Rx<TextEditingController> userNameRegister = TextEditingController().obs;
+  Rx<TextEditingController> doctorNameRegister = TextEditingController().obs;
   Rx<TextEditingController> phoneRegister = TextEditingController().obs;
   Rx<TextEditingController> ageRegister = TextEditingController().obs;
   var selectedGender = 'Male'.obs;
   Rx<TextEditingController> emailRegister = TextEditingController().obs;
   Rx<TextEditingController> passwordRegister = TextEditingController().obs;
+  var userType = Rxn<String>();
+  var userSeletion = false.obs;
 
   var url = ''.obs;
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -59,7 +62,7 @@ class LoginController extends GetxController with SingleGetTickerProviderMixin {
     super.onInit();
     print("LoginController init");
     box = GetStorage();
-
+    var userType = box.write('userType', null);
     // EasyLoading.init();
     EasyLoading.dismiss();
   }
