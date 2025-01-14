@@ -6,24 +6,27 @@ const UserModel = require("./model/user.model");
 const doctorController = require("./controller/doctor.controller");
 
 const app = express();
+
+// Increase the JSON payload limit
+app.use(express.json({ limit: "50mb" }));
+// If you're also using URL-encoded data, increase that limit too
+app.use(express.urlencoded({ limit: "50mb", extended: true }));
+
 app.use(
   cors({
     origin: "http://192.168.0.104",
   })
 );
-app.use(express.json());
 
 // Setup multer for handling image uploads
-const storage = multer.memoryStorage(); // Store files in memory
+const storage = multer.memoryStorage();
 
 const upload = multer({
   storage: storage,
   limits: { fileSize: 20 * 1024 * 1024 }, // Limit to 20MB
-}).single("image"); // 'image' should be the field name in the form for the image
+}).single("image");
 
-app.use(upload); // Use multer as middleware for the relevant routes
-
-app.use(express.json());
+app.use(upload);
 
 app.post("/registerUser", userController.registerUser);
 app.get("/users", userController.getRegisteredUsers);
