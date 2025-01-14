@@ -12,12 +12,9 @@ import '../../routes/app_routes.dart';
 class Register extends GetView<LoginController> {
   Register(this.navigatorKey);
   GlobalKey<NavigatorState> navigatorKey;
-  // Login(this.navigatorKey);
-  // GlobalKey<NavigatorState> navigatorKey;
 
   final FocusNode _focusNode = FocusNode();
   final formGlobalKey = GlobalKey<FormState>();
-  // Rx<TextEditingController> scanEditingController = TextEditingController().obs;
   TextEditingController scanEditingController = TextEditingController();
 
   init() {
@@ -302,10 +299,6 @@ class Register extends GetView<LoginController> {
               SizedBox(height: Get.height * 0.02),
             ],
           ),
-
-
-
-
 
           //buttons
           Row(

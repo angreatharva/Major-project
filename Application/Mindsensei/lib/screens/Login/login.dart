@@ -58,7 +58,7 @@ class Login extends StatelessWidget {
               SizedBox(height: Get.height * 0.1),
 
               !controller.userSeletion.value ?
-                  Container(
+                Container(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
@@ -70,14 +70,19 @@ class Login extends StatelessWidget {
                           },
                           child: Container(
 
-                            height:Get.height * 0.18,
+                            height:Get.height * 0.20,
                             width:Get.width * 0.4,
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
-                                color:Colors.red,
+                                color:Colors.red.shade100,
                               borderRadius: BorderRadius.circular(10)
                             ),
-                            child: Text("You are a Patient"),
+                            child: Column(
+                              children: [
+                                Text("Are you a..."),
+                                Image.asset('assets/images/patient.png')
+                              ],
+                            ),
                           ),
                         ),
                         GestureDetector(
@@ -87,14 +92,19 @@ class Login extends StatelessWidget {
                             controller.box.write('userType', "patient");
                           },
                           child: Container(
-                            height:Get.height * 0.18,
+                            height:Get.height * 0.20,
                             width:Get.width * 0.4,
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
-                                color:Colors.green,
+                                color:Colors.green.shade100,
                                 borderRadius: BorderRadius.circular(10)
                             ),
-                            child: Text("You are a Doctor"),
+                            child: Column(
+                              children: [
+                                Text("Are you a..."),
+                                Image.asset('assets/images/doctor.png')
+                              ],
+                            ),
                           ),
                         )
                       ],
@@ -196,7 +206,7 @@ class Login extends StatelessWidget {
 
 
   void init() {
-    WidgetsBinding.instance?.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       // executes after build
       // controller.checkForAlreadyLogin();
     });
