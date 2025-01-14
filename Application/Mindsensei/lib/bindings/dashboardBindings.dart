@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import '../controller/dashboardController.dart';
-import '../data/provider/api.dart';
+import '../data/provider/api_provider.dart';
 import '../data/repository/post_repository.dart';
 import 'package:http/http.dart' as http;
 

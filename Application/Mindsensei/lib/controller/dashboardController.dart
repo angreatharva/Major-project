@@ -6,9 +6,9 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../constants/api_Endpoints.dart';
+import '../constants/api_endpoints.dart';
+import '../data/model/teamsListModel.dart';
 import '../data/repository/post_repository.dart';
-import '../data_model/teamsListModel.dart';
 import '../routes/app_routes.dart';
 
 class DashboardController extends GetxController with SingleGetTickerProviderMixin {

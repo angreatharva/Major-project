@@ -4,7 +4,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
 
-import '../../constants/app_Colors.dart';
+import '../../constants/app_colors.dart';
 import '../../controller/loginController.dart';
 import '../../routes/app_routes.dart';
 

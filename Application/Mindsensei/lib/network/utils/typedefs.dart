@@ -1,17 +1,18 @@
-import '../../network/utils/network_error.dart';
 import 'package:dio/dio.dart';
+import 'network_error.dart';
 
+/// Represents the current network call status.
 enum NetworkCallConnectionStatus {
   inProgress,
   completedSuccessfully,
   failed,
-  aborted
+  aborted,
 }
 
-typedef OnNetworkCallProgress = Function();
-typedef OnNetworkCallSuccess = Function<T>(T);
-typedef OnNetworkCallCancelled = Function();
-typedef OnNetworkCallFailed = Function(NetworkError);
-typedef OnValueChanged = Function();
+/// Typedefs for callbacks during network operations.
+typedef OnNetworkCallProgress = void Function();
+typedef OnNetworkCallSuccess<T> = void Function(T data);
+typedef OnNetworkCallCancelled = void Function();
+typedef OnNetworkCallFailed = void Function(NetworkError error);
+typedef OnValueChanged = void Function();
 typedef MockDataHandler = Future<Response> Function(RequestOptions options);
-

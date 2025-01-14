@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../constants/app_string.dart';
-import 'request_options/request_options_builder.dart';
+import '../../constants/app_string.dart';
+import 'request_options_builder.dart';
 
 class AppRequestOptionsBuilder extends RequestOptionsBuilder {
   late SharedPreferences? sharedPreferences;

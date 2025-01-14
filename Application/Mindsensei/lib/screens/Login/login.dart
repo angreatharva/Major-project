@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../constants/appString.dart';
-import '../../constants/app_Colors.dart';
+import '../../constants/app_string.dart';
+import '../../constants/app_colors.dart';
 import '../../controller/loginController.dart';
 import '../../routes/app_routes.dart';
 
@@ -29,7 +29,7 @@ class Login extends StatelessWidget {
                       margin: EdgeInsets.symmetric(horizontal: 20.0),
                       child: GestureDetector(
                         onDoubleTap: () {
-                          Get.toNamed(Routes.REGISTER);
+                          // Get.toNamed(Routes.REGISTER);
                         },
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(20.0),

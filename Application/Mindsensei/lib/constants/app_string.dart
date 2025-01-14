@@ -1,4 +1,4 @@
-import 'api_Endpoints.dart';
+import 'api_endpoints.dart';
 class AppStrings {
   // static final errorMessages = ErrorMessages();
   // static final textFieldConstant = InputFields();

@@ -1,60 +1,43 @@
 import 'dart:io';
-
-// import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:dio/io.dart';
 
-import '../constants/appString.dart';
-
-
-enum HTTPContentType { json, raw, binary, pdf }
-
-class HTTPStatus {
-  static const int HTTP_OK = 200;
-}
+import '../constants/app_string.dart';
 
 class ApiClient {
-  late Dio dioClient;
+  final Dio dioClient;
 
-  ApiClient.defaultClient({ BaseOptions? baseOptions}) {
-    if (baseOptions == null) {
-      baseOptions = BaseOptions(
-        baseUrl: AppStrings.apiEndpoints.baseURL,
-        connectTimeout: Duration(milliseconds: 60000),
-        receiveTimeout: Duration(milliseconds: 60000),
-      );
-    }
-    dioClient = Dio(baseOptions);
-    (dioClient.httpClientAdapter as DefaultHttpClientAdapter)
-        .onHttpClientCreate = (HttpClient client) {
-      //bypass SSL pinning
-      client.badCertificateCallback =
-          (X509Certificate cert, String host, int port) => true;
-      return client;
-    };
+  ApiClient({BaseOptions? baseOptions})
+      : dioClient = Dio(
+    baseOptions ??
+        BaseOptions(
+          baseUrl: AppStrings.apiEndpoints.baseURL,
+          connectTimeout: const Duration(milliseconds: 60000),
+          receiveTimeout: const Duration(milliseconds: 60000),
+        ),
+  ) {
+    dioClient.httpClientAdapter = DefaultHttpClientAdapter()
+      ..onHttpClientCreate = (HttpClient client) {
+        client.badCertificateCallback =
+            (X509Certificate cert, String host, int port) => true;
+        return client;
+      };
 
-    //log api calls
     dioClient.interceptors.add(LogInterceptor());
+  }
+
+  /// Factory method to create a default instance of `ApiClient`.
+  static ApiClient defaultClient() {
+    return ApiClient();
   }
 }
 
 class CustomException implements Exception {
-  late String? errorCode;
-  late String? errorMessage;
-  late String? humanizedMessage;
+  final String errorCode;
+  final String errorMessage;
 
-  CustomException(
-      { this.errorCode,  this.errorMessage,  this.humanizedMessage});
+  CustomException(this.errorCode, this.errorMessage);
 
-  CustomException.fromJson(Map<String, dynamic> json) {
-
-    errorCode = json['errorCode'] == null ? null : json['errorCode'];
-    errorMessage = json['errorMessage'] == null ? null : json['errorMessage'];
-    humanizedMessage =
-    json['errorMessage'] == null ? null : json['errorMessage'];
-  }
-
-  String toString() {
-    return humanizedMessage!;
-  }
+  @override
+  String toString() => 'Error $errorCode: $errorMessage';
 }

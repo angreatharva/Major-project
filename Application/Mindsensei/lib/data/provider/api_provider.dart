@@ -8,7 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../constants/app_string.dart';
 import '../../constants/app_colors.dart';
 import '../../network/api_Client.dart';
-import '../../network/request_options_builder.dart';
+import '../../network/request_options/app_request_options_builder.dart';
 
 const baseUrl = "http://192.168.0.105:3000/";
 
@@ -98,10 +98,5 @@ class MyApiClient {
       }
       return null;
     }
-
   }
-
-
-
-
 }
