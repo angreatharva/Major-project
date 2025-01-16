@@ -3,6 +3,7 @@ const cors = require("cors");
 const multer = require("multer");
 const userController = require("./controller/user.controller");
 const UserModel = require("./model/user.model");
+const DrModel = require("./model/doctor.model");
 const doctorController = require("./controller/doctor.controller");
 
 const app = express();
@@ -43,7 +44,7 @@ app.post("/login", async (req, res) => {
         success: true,
         role: "patient",
         userId: user._id,
-        name: user.userName,
+        userName: user.userName,
         message: "Login successful as a patient",
       });
     }
@@ -55,7 +56,7 @@ app.post("/login", async (req, res) => {
         success: true,
         role: "doctor",
         userId: doctor._id,
-        name: doctor.userName,
+        userName: doctor.doctorName,
         message: "Login successful as a doctor",
       });
     }

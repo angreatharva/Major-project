@@ -216,7 +216,9 @@ class LoginController extends GetxController with SingleGetTickerProviderMixin {
         repository.loginUser(email, password).then((data) {
           if (data != null) {
             if (data["success"] == true) {
-              print("Login Success"+data.toString());
+              print("Register data: $data");
+              box.write("Username",data['userName']);
+              box.write("loggedInRole",data['role']);
               Get.toNamed(Routes.DASHBOARD);
             } else {
               print("Login Failed");
