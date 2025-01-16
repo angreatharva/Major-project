@@ -57,16 +57,16 @@ class Login extends StatelessWidget {
 
               SizedBox(height: Get.height * 0.1),
 
-              !controller.userSeletion.value ?
+              !controller.userSelection.value ?
                 Container(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         GestureDetector(
                           onTap: (){
-                            controller.userSeletion.value =true;
-                            controller.userType.value = "doctor";
-                            controller.box.write('userType', "doctor");
+                            controller.userSelection.value =true;
+                            controller.userType.value = "patient";
+                            controller.box.write('userType', "patient");
                           },
                           child: Container(
 
@@ -87,9 +87,9 @@ class Login extends StatelessWidget {
                         ),
                         GestureDetector(
                           onTap: (){
-                            controller.userSeletion.value =true;
-                            controller.userType.value = "patient";
-                            controller.box.write('userType', "patient");
+                            controller.userSelection.value =true;
+                            controller.userType.value = "doctor";
+                            controller.box.write('userType', "doctor");
                           },
                           child: Container(
                             height:Get.height * 0.20,

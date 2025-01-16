@@ -9,6 +9,9 @@ class APIEndpoints {
   String get registerUser{
     return "registerUser";
   }
+  String get registerDoctor{
+    return "registerDoctor";
+  }
   String get login{
     return "login";
   }

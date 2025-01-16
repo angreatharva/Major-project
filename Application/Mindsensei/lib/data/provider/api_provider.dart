@@ -25,7 +25,7 @@ class MyApiClient {
 
   registerUser(Map<String, dynamic> mapData) async {
     try {
-      print('login mapData : ' + mapData.toString());
+      print('registerUser mapData : ' + mapData.toString());
       ApiClient apiClient = ApiClient.defaultClient();
       var response = await apiClient.dioClient.post(
         AppStrings.apiEndpoints.registerUser,
@@ -38,6 +38,42 @@ class MyApiClient {
         return jsonResponse;
       } else {
         print('Error in registerUser response: Status Code ' + response.statusCode.toString());
+        print('Response data: ' + response.data.toString());
+
+        return null;
+      }
+    }
+    catch (e) {
+      if (e is DioException) {
+        print('DioException in registerJudge: ' + e.toString());
+        print('Response status code: ${e.response?.statusCode}');
+        print('Response data: ${e.response?.data}');
+        Get.snackbar("REGISTER FAILED ",
+            "${e.response?.data['error'].toString()}",
+            duration: const Duration(seconds: 3),
+            backgroundColor: AppColors.red);
+      } else {
+        print('Exception in registerJudge: ' + e.toString());
+      }
+      return null;
+    }
+  }
+
+  registerDoctor(Map<String, dynamic> mapData) async {
+    try {
+      print('registerDoctor mapData : ' + mapData.toString());
+      ApiClient apiClient = ApiClient.defaultClient();
+      var response = await apiClient.dioClient.post(
+        AppStrings.apiEndpoints.registerDoctor,
+        data: jsonEncode(mapData),
+        options: (await AppRequestOptionsBuilder().defaultHeader()).build(),
+      );
+      if (response.statusCode == 201) {
+        dynamic jsonResponse = response.data;
+        print("registerDoctor response: " + jsonEncode(jsonResponse));
+        return jsonResponse;
+      } else {
+        print('Error in registerDoctor response: Status Code ' + response.statusCode.toString());
         print('Response data: ' + response.data.toString());
 
         return null;

@@ -8,6 +8,9 @@ class MyRepository {
   registerUser(mapData) {
     return apiClient.registerUser(mapData);
   }
+  registerDoctor(mapData) {
+    return apiClient.registerDoctor(mapData);
+  }
 
   loginUser(userName, password) {
     return apiClient.loginUser(userName, password);

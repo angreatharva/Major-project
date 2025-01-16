@@ -48,31 +48,22 @@ class LoginController extends GetxController with SingleGetTickerProviderMixin {
   var selectedGenderDoctor = 'Male'.obs;
 
   var userType = Rxn<String>();
-  var userSeletion = false.obs;
+  var userSelection = false.obs;
 
   Rx<File?> imageFile = Rx<File?>(null);
   RxString base64String = "".obs;
 
-  var url = ''.obs;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
   var isShowPass = true.obs;
-  var isSuperior = false.obs;
   var dummyText = ''.obs;
   late SharedPreferences prefs;
-  RxList<DropdownList> ageGroupList = <DropdownList>[
-    DropdownList('under12', 'Under 12'),
-    DropdownList('under14', 'Under 14'),
-    DropdownList('under16', 'Under 16'),
-    DropdownList('under18', 'Under 18'),
-    DropdownList('above16', 'Above 16'),
-    DropdownList('above18', 'Above 18'),
-  ].obs;
+
 
   @override
   void onClose() {
-    // flutterWebViewPlugin.dispose();
     super.onClose();
+
     EasyLoading.dismiss();
   }
 
@@ -137,7 +128,7 @@ class LoginController extends GetxController with SingleGetTickerProviderMixin {
       Map<String, dynamic> mapData = {
         "userName":userName,
         "phone":phone,
-        "age":age,
+        "age":int.parse(age),
         "gender":gender,
         "email":email,
         "password":password
@@ -146,7 +137,9 @@ class LoginController extends GetxController with SingleGetTickerProviderMixin {
         var data = await repository.registerUser(mapData);
             // .then((data) {ATH
           print("Register data: $data");
-          if (data != null) {
+          box.write("Username",data['data']['userName']);
+
+        if (data != null) {
             if (data['status'] != 'Failure') {
               print('Register Success');
               Get.toNamed(Routes.DASHBOARD);
@@ -169,23 +162,29 @@ class LoginController extends GetxController with SingleGetTickerProviderMixin {
     }
   }
 
-  registerDoctor(userName, phone, age, gender, email, qualification, specialization, licenseNumber, password,image) async {
+  registerDoctor(doctorName, phone, age, gender, email, qualification, specialization, licenseNumber, password,image) async {
     EasyLoading.show();
 
     try {
-      print('auth : ' + userName + "-" + password);
+      print('auth : ' + doctorName + "-" + password);
       Map<String, dynamic> mapData = {
-        "userName":userName,
+        "doctorName":doctorName,
         "phone":phone,
-        "age":age,
+        "age":int.parse(age),
         "gender":gender,
         "email":email,
+        "qualification":qualification,
+        "specialization":specialization,
+        "licenseNumber":licenseNumber,
+        "image":image,
         "password":password
       };
       if (email.isNotEmpty && password.isNotEmpty) {
-        var data = await repository.registerUser(mapData);
+        var data = await repository.registerDoctor(mapData);
         // .then((data) {ATH
         print("Register data: $data");
+        print("Register data doctorName: ${data['data']['doctorName']}");
+        box.write("Username",data['data']['doctorName']);
         if (data != null) {
           if (data['status'] != 'Failure') {
             print('Register Success');

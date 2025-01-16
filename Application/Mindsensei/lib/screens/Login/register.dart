@@ -77,6 +77,121 @@ class Register extends GetView<LoginController> {
                 child: Column(
                   children: [
                     controller.userType.value == 'patient' ?
+                    //patient
+                    Column(
+                      children: [
+                        // Username TextField
+                        Container(
+                          margin: EdgeInsets.symmetric(horizontal: 20.0),
+                          child: TextFormField(
+                            controller: controller.userNameRegister.value,
+                            decoration: InputDecoration(
+                              labelText: "Enter User Name",
+                              contentPadding: EdgeInsets.symmetric(horizontal: 20.0),
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.green),
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: Get.height * 0.02),
+
+                        //Phone
+                        Container(
+                          margin: EdgeInsets.symmetric(horizontal: 20.0),
+                          child: TextFormField(
+                            controller: controller.userPhoneRegister.value,
+                            keyboardType:TextInputType.number,
+                            decoration: InputDecoration(
+                              labelText: "Enter Phone Number",
+                              contentPadding: EdgeInsets.symmetric(horizontal: 20.0),
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.red),
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: Get.height * 0.02),
+
+                        //age
+                        Container(
+                          margin: EdgeInsets.symmetric(horizontal: 20.0),
+                          child: TextFormField(
+                            controller: controller.userAgeRegister.value,
+                            decoration: InputDecoration(
+                              labelText: "Enter Age",
+                              contentPadding: EdgeInsets.symmetric(horizontal: 20.0),
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.red),
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: Get.height * 0.02),
+
+                        //age
+                        Row(
+                          children: [
+                            Expanded(
+                              child: RadioListTile(
+                                title: Text('Male'),
+                                value: 'Male',
+                                groupValue: controller.selectedGenderUser.value,
+                                onChanged: (value) =>
+                                controller.selectedGenderUser.value = value!,
+                              ),
+                            ),
+                            Expanded(
+                              child: RadioListTile(
+                                title: Text('Female'),
+                                value: 'Female',
+                                groupValue: controller.selectedGenderUser.value,
+                                onChanged: (value) =>
+                                controller.selectedGenderUser.value = value!,
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: Get.height * 0.02),
+
+                        //email
+                        Container(
+                          margin: EdgeInsets.symmetric(horizontal: 20.0),
+                          child: TextFormField(
+                            controller: controller.userEmailRegister.value,
+                            decoration: InputDecoration(
+                              labelText: "Enter Email",
+                              contentPadding: EdgeInsets.symmetric(horizontal: 20.0),
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.red),
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: Get.height * 0.02),
+
+                        // Password TextField
+                        Container(
+                          margin: EdgeInsets.symmetric(horizontal: 20.0),
+                          child: TextFormField(
+                            controller: controller.userPasswordRegister.value,
+                            decoration: InputDecoration(
+                              labelText: "Password",
+                              contentPadding: EdgeInsets.symmetric(horizontal: 20.0),
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.red),
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: Get.height * 0.02),
+                      ],
+                    ):
                     //doctor
                     Column(
                       children: [
@@ -102,6 +217,7 @@ class Register extends GetView<LoginController> {
                           margin: EdgeInsets.symmetric(horizontal: 20.0),
                           child: TextFormField(
                             controller: controller.doctorPhoneRegister.value,
+                            keyboardType:TextInputType.number,
                             decoration: InputDecoration(
                               labelText: "Enter Phone Number",
                               contentPadding: EdgeInsets.symmetric(horizontal: 20.0),
@@ -259,12 +375,12 @@ class Register extends GetView<LoginController> {
                                     child: Text('Pick Image'),
                                   ),
                                   SizedBox(height: 20),
-                                  controller.base64String.value.isEmpty
-                                      ? Container()
-                                      : Text(
-                                    'Base64 String: \n${controller.base64String.value}',
-                                    style: TextStyle(fontSize: 12),
-                                  ),
+                                  // controller.base64String.value.isEmpty
+                                  //     ? Container()
+                                  //     : Text(
+                                  //   'Base64 String: \n${controller.base64String.value}',
+                                  //   style: TextStyle(fontSize: 12),
+                                  // ),
                                 ],
                               );
                             }),
@@ -272,121 +388,8 @@ class Register extends GetView<LoginController> {
                         )
           
                       ],
-                    ):
-                    //patient
-                    Column(
-                      children: [
-                        // Username TextField
-                        Container(
-                          margin: EdgeInsets.symmetric(horizontal: 20.0),
-                          child: TextFormField(
-                            controller: controller.userNameRegister.value,
-                            decoration: InputDecoration(
-                              labelText: "Enter User Name",
-                              contentPadding: EdgeInsets.symmetric(horizontal: 20.0),
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.green),
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: Get.height * 0.02),
-          
-                        //Phone
-                        Container(
-                          margin: EdgeInsets.symmetric(horizontal: 20.0),
-                          child: TextFormField(
-                            controller: controller.userPhoneRegister.value,
-                            decoration: InputDecoration(
-                              labelText: "Enter Phone Number",
-                              contentPadding: EdgeInsets.symmetric(horizontal: 20.0),
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.red),
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: Get.height * 0.02),
-          
-                        //age
-                        Container(
-                          margin: EdgeInsets.symmetric(horizontal: 20.0),
-                          child: TextFormField(
-                            controller: controller.userAgeRegister.value,
-                            decoration: InputDecoration(
-                              labelText: "Enter Age",
-                              contentPadding: EdgeInsets.symmetric(horizontal: 20.0),
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.red),
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: Get.height * 0.02),
-          
-                        //age
-                        Row(
-                          children: [
-                            Expanded(
-                              child: RadioListTile(
-                                title: Text('Male'),
-                                value: 'Male',
-                                groupValue: controller.selectedGenderUser.value,
-                                onChanged: (value) =>
-                                controller.selectedGenderUser.value = value!,
-                              ),
-                            ),
-                            Expanded(
-                              child: RadioListTile(
-                                title: Text('Female'),
-                                value: 'Female',
-                                groupValue: controller.selectedGenderUser.value,
-                                onChanged: (value) =>
-                                controller.selectedGenderUser.value = value!,
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: Get.height * 0.02),
-          
-                        //email
-                        Container(
-                          margin: EdgeInsets.symmetric(horizontal: 20.0),
-                          child: TextFormField(
-                            controller: controller.userEmailRegister.value,
-                            decoration: InputDecoration(
-                              labelText: "Enter Email",
-                              contentPadding: EdgeInsets.symmetric(horizontal: 20.0),
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.red),
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: Get.height * 0.02),
-          
-                        // Password TextField
-                        Container(
-                          margin: EdgeInsets.symmetric(horizontal: 20.0),
-                          child: TextFormField(
-                            controller: controller.userPasswordRegister.value,
-                            decoration: InputDecoration(
-                              labelText: "Password",
-                              contentPadding: EdgeInsets.symmetric(horizontal: 20.0),
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.red),
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: Get.height * 0.02),
-                      ],
                     ),
+
           
                     //buttons
                     Row(
@@ -446,7 +449,7 @@ class Register extends GetView<LoginController> {
                                 print("doctorLicenseNumber :${controller.doctorLicenseNumberRegister.value.text}");
                                 print("doctorPassword :${controller.doctorPasswordRegister.value.text}");
                                 controller.registerDoctor(
-                                    controller.userNameRegister.value.text,
+                                    controller.doctorNameRegister.value.text,
                                     controller.doctorPhoneRegister.value.text,
                                     controller.doctorAgeRegister.value.text,
                                     controller.selectedGenderDoctor.value,
@@ -455,7 +458,7 @@ class Register extends GetView<LoginController> {
                                     controller.doctorSpecializationRegister.value.text,
                                     controller.doctorLicenseNumberRegister.value.text,
                                     controller.doctorPasswordRegister.value.text,
-                                    'sdjn'
+                                    controller.base64String.value
                                 );
           
                               }
@@ -468,7 +471,9 @@ class Register extends GetView<LoginController> {
                               style: TextStyle(color: AppColors.white),
                             ))
                       ],
-                    )
+                    ),
+                    SizedBox(height: Get.height * 0.02),
+
                   ],
                 ),
               )
