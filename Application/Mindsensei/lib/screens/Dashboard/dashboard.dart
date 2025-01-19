@@ -16,7 +16,7 @@ class Dashboard extends GetView<DashboardController> {
       return Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          backgroundColor: AppColors.orange,
+          backgroundColor: AppColors.colorPrimary,
           title: Text(
             "Welcome, ${controller.box.read("Username")}",
             style: TextStyle(color: AppColors.black),
