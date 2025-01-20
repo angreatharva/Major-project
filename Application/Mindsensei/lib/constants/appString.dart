@@ -1,12 +1,7 @@
-import 'api_endpoints.dart';
+import 'apiEndpoints.dart';
 class AppStrings {
-  // static final errorMessages = ErrorMessages();
-  // static final textFieldConstant = InputFields();
-  // static final appTitle = AppTitle();
-  // static final appSubTitle = AppSubTitle();
-  // static final buttons = Buttons();
+
    static final apiEndpoints = APIEndpoints();
-  // static final appActionId = AppActionId();
 
   static String success = "Success";
   static String failure = "Failure";

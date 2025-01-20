@@ -5,10 +5,10 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../constants/app_string.dart';
-import '../../constants/app_colors.dart';
-import '../../network/api_Client.dart';
-import '../../network/request_options/app_request_options_builder.dart';
+import '../../constants/appString.dart';
+import '../../constants/appColors.dart';
+import '../../network/apiClient.dart';
+import '../../network/request_options/appRequestOptionsBuilder.dart';
 
 const baseUrl = "http://192.168.0.105:3000/";
 

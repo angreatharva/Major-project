@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../constants/app_string.dart';
-import '../../constants/app_colors.dart';
+import '../../constants/appString.dart';
+import '../../constants/appColors.dart';
 import '../../controller/loginController.dart';
-import '../../routes/app_routes.dart';
+import '../../routes/appRoutes.dart';
 
 class Login extends StatelessWidget {
   final GlobalKey<NavigatorState> navigatorKey;

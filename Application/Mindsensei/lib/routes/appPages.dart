@@ -2,13 +2,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
-import '../bindings/dashboardBindings.dart';
+import '../bindings/dashboardBinding.dart';
 import '../bindings/loginBinding.dart';
 import '../screens/Dashboard/dashboard.dart';
 import '../screens/Login/login.dart';
 import '../screens/Login/register.dart';
 import '../screens/Login/splash.dart';
-import 'app_routes.dart';
+import 'appRoutes.dart';
 
 
 class AppPages {

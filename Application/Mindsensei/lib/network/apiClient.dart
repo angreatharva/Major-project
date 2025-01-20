@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:dio/io.dart';
 
-import '../constants/app_string.dart';
+import '../constants/appString.dart';
 
 class ApiClient {
   final Dio dioClient;

@@ -10,8 +10,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../data/model/dropDown_model.dart';
-import '../data/repository/post_repository.dart';
-import '../routes/app_routes.dart';
+import '../data/repository/postRepository.dart';
+import '../routes/appRoutes.dart';
 
 class LoginController extends GetxController with SingleGetTickerProviderMixin {
   final MyRepository repository;

@@ -1,4 +1,4 @@
-import '../provider/api_provider.dart';
+import '../provider/apiProvider.dart';
 
 class MyRepository {
   final MyApiClient apiClient;

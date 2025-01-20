@@ -3,9 +3,9 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get/get_navigation/src/routes/transitions_type.dart';
-import 'package:mindsensei/routes/app_pages.dart';
-import 'package:mindsensei/routes/app_routes.dart';
-import 'package:mindsensei/translation/app_Translation.dart';
+import 'package:mindsensei/routes/appPages.dart';
+import 'package:mindsensei/routes/appRoutes.dart';
+import 'package:mindsensei/translation/appTranslation.dart';
 
 void main() {
   // Initialize EasyLoading

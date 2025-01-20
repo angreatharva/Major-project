@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'network_error.dart';
+import 'networkError.dart';
 
 /// Represents the current network call status.
 enum NetworkCallConnectionStatus {

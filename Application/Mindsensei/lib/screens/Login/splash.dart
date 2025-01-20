@@ -4,9 +4,9 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
 
-import '../../constants/app_colors.dart';
+import '../../constants/appColors.dart';
 import '../../controller/loginController.dart';
-import '../../routes/app_routes.dart';
+import '../../routes/appRoutes.dart';
 
 class Splash extends GetView<LoginController> {
 
