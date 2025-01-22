@@ -10,9 +10,6 @@ import '../../constants/appColors.dart';
 import '../../network/apiClient.dart';
 import '../../network/request_options/appRequestOptionsBuilder.dart';
 
-const baseUrl = "http://192.168.0.105:3000/";
-
-
 const loginUser = 'token';
 
 class MyApiClient {

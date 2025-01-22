@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
 import 'package:mindsensei/screens/Blogs/blogs.dart';
+import 'package:mindsensei/screens/Monitor/monitor.dart';
 import '../../commonWidgets/bottomNavigation/commonBottomBarController.dart';
 import '../../commonWidgets/bottomNavigation/commonBottomBar.dart';
 import '../../constants/appColors.dart';
@@ -55,6 +56,14 @@ class Dashboard extends GetView<DashboardController> {
           print(Get.find<BottomNavigationController>().selectedIndex.value);
           return Doctors();
         case 2:
+          print("Blogs SC");
+          print(Get.find<BottomNavigationController>().selectedIndex.value);
+          return Doctors();
+          case 3:
+          print("Blogs SC");
+          print(Get.find<BottomNavigationController>().selectedIndex.value);
+          return Monitor();
+          case 4:
           print("Blogs SC");
           print(Get.find<BottomNavigationController>().selectedIndex.value);
           return Blogs();

@@ -25,7 +25,7 @@ class CommonBottomNav extends GetView<BottomNavigationController> {
           items: [
             BottomNavigationBarItem(
               icon: Icon(
-                Icons.home,
+                Icons.home_outlined,
                 color: AppColors.colorPrimary,
               ),
               label: 'Wellness'.tr,
@@ -33,7 +33,7 @@ class CommonBottomNav extends GetView<BottomNavigationController> {
             ),
             BottomNavigationBarItem(
               icon: Icon(
-                Icons.home,
+                Icons.person_outline,
                 color: AppColors.colorPrimary,
               ),
               label: 'Doctors'.tr,
@@ -41,7 +41,23 @@ class CommonBottomNav extends GetView<BottomNavigationController> {
             ),
             BottomNavigationBarItem(
               icon: Icon(
-                Icons.person,
+                Icons.message_outlined,
+                color: AppColors.colorPrimary,
+              ),
+              label: 'Chat AI'.tr,
+              backgroundColor: Colors.grey[100],
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.monitor_heart_outlined,
+                color: AppColors.colorPrimary,
+              ),
+              label: 'Monitor'.tr,
+              backgroundColor: Colors.grey[100],
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.text_snippet_outlined,
                 color: AppColors.colorPrimary,
               ),
               label: 'Blogs'.tr,
