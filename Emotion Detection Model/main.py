@@ -21,7 +21,7 @@ def main():
     
     # Load and preprocess data
     print("Loading and preprocessing data...")
-    train_dataset, test_dataset = load_and_preprocess_data(DATASET_PATH, BATCH_SIZE)
+    train_dataset = load_and_preprocess_data(DATASET_PATH, BATCH_SIZE)
     
     # Create and compile model
     print("Creating model...")
@@ -39,10 +39,10 @@ def main():
     history = model.fit(
         train_dataset,
         epochs=EPOCHS,
-        validation_data=test_dataset,
         callbacks=callbacks,
         verbose=1
     )
+
     
     # Load the best model (the one with best validation accuracy)
     print("\nLoading best model...")

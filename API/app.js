@@ -15,7 +15,7 @@ app.use(express.urlencoded({ limit: "50mb", extended: true }));
 
 app.use(
   cors({
-    origin: "http://192.168.0.104",
+    origin: true,
   })
 );
 
