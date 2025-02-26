@@ -7,16 +7,17 @@ def load_and_preprocess_data(dataset_path, batch_size):
     IMG_SIZE = (48, 48)
     train_data_gen = ImageDataGenerator(
         rescale=1./255,
-        rotation_range=30,
+        rotation_range=40,
         width_shift_range=0.3,
         height_shift_range=0.3,
-        brightness_range=[0.5, 1.5],
+        brightness_range=[0.2, 1.8],  # Increased brightness variations
         shear_range=0.3,
-        zoom_range=0.3,
+        zoom_range=0.4,  # Increased zoom range
         horizontal_flip=True,
         fill_mode='nearest',
         validation_split=0.2
     )
+
     val_data_gen = ImageDataGenerator(
         rescale=1./255,
         validation_split=0.2

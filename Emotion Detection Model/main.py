@@ -4,8 +4,8 @@ import os
 import numpy as np
 import tensorflow as tf
 from sklearn.utils.class_weight import compute_class_weight
-from train_model import create_emotion_model, create_transfer_learning_model, compile_model
-from preprocess_data import load_and_preprocess_data
+from scripts.train_model import create_emotion_model, create_transfer_learning_model, compile_model
+from scripts.preprocess_data import load_and_preprocess_data
 
 def train_and_evaluate():
     BATCH_SIZE = 32

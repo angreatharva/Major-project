@@ -3,7 +3,19 @@ import numpy as np
 import tensorflow as tf
 import matplotlib.pyplot as plt
 from sklearn.metrics import confusion_matrix, classification_report
+from sklearn.ensemble import StackingClassifier
+from sklearn.linear_model import LogisticRegression
 import seaborn as sns
+
+
+def create_stacked_model():
+    cnn_model = tf.keras.models.load_model('models/emotion_model.keras')
+    transfer_model = tf.keras.models.load_model('models/emotion_transfer_model.keras')
+
+    return StackingClassifier(
+        estimators=[('cnn', cnn_model), ('transfer', transfer_model)],
+        final_estimator=LogisticRegression()
+    )
 
 def create_ensemble_model():
     # Load both trained models
