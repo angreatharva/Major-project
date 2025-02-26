@@ -20,3 +20,12 @@ run the below command in terminal
 python test_tflite_model.py
 
 - to close the window press ctrl+c in the terminal
+
+Training Pipeline:
+a. Run the basic model: python main.py
+b. Run the transfer learning model (typically better performance): python transfer_learning_main.py
+c. Run the class-weighted model (better for imbalanced datasets): python class_weight_main.py
+d. Evaluate the ensemble of models (after training at least 2 models): python ensemble_model.py
+
+python convert_tflite.py
+python test_tflite_model.py

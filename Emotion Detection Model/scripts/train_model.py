@@ -1,31 +1,45 @@
+### train_model.py
 import tensorflow as tf
-from tensorflow.keras.preprocessing.image import ImageDataGenerator
-import matplotlib.pyplot as plt
+from tensorflow.keras.applications import EfficientNetB3
+from tensorflow.keras.layers import Dense, GlobalAveragePooling2D, Dropout, BatchNormalization, Conv2D, MaxPooling2D, Flatten, Add, Input
+from tensorflow.keras.models import Model
 
 def create_emotion_model():
-    model = tf.keras.Sequential([
-        tf.keras.layers.Conv2D(32, (3, 3), activation='relu', input_shape=(48, 48, 3)),
-        tf.keras.layers.MaxPooling2D(2, 2),
-        tf.keras.layers.Conv2D(64, (3, 3), activation='relu'),
-        tf.keras.layers.MaxPooling2D(2, 2),
-        tf.keras.layers.Conv2D(128, (3, 3), activation='relu'),
-        tf.keras.layers.MaxPooling2D(2, 2),
-        tf.keras.layers.Flatten(),
-        tf.keras.layers.Dense(128, activation='relu'),
-        tf.keras.layers.Dense(7, activation='softmax')  # 7 classes for the 7 emotions
-    ])
+    inputs = Input(shape=(48, 48, 3))
+    x = Conv2D(64, (3,3), activation='relu', padding='same')(inputs)
+    x = BatchNormalization()(x)
+    x = Conv2D(64, (3,3), activation='relu', padding='same')(x)
+    x = BatchNormalization()(x)
+    x = MaxPooling2D(pool_size=(2,2))(x)
+    shortcut = x
+    x = Conv2D(128, (3,3), activation='relu', padding='same')(x)
+    x = BatchNormalization()(x)
+    x = Conv2D(128, (3,3), activation='relu', padding='same')(x)
+    x = BatchNormalization()(x)
+    x = Add()([x, shortcut])
+    x = MaxPooling2D(pool_size=(2,2))(x)
+    x = Flatten()(x)
+    x = Dense(256, activation='relu')(x)
+    x = BatchNormalization()(x)
+    x = Dropout(0.5)(x)
+    outputs = Dense(7, activation='softmax')(x)
+    model = Model(inputs, outputs)
     return model
 
-
+def create_transfer_learning_model():
+    base_model = EfficientNetB3(weights='imagenet', include_top=False, input_shape=(48, 48, 3))
+    base_model.trainable = False
+    x = GlobalAveragePooling2D()(base_model.output)
+    x = Dense(256, activation='relu')(x)
+    x = BatchNormalization()(x)
+    x = Dropout(0.5)(x)
+    outputs = Dense(7, activation='softmax')(x)
+    model = Model(inputs=base_model.input, outputs=outputs)
+    return model
 
 def compile_model(model):
-    model.compile(optimizer='adam',
-                  loss='categorical_crossentropy',  # Since we're doing multi-class classification
-                  metrics=['accuracy'])
-
-
-def get_callbacks(model_path):
-    return [
-        tf.keras.callbacks.ModelCheckpoint(model_path, save_best_only=True, monitor='val_accuracy', mode='max', verbose=1),
-        tf.keras.callbacks.EarlyStopping(monitor='val_accuracy', patience=3, restore_best_weights=True)
-    ]
+    model.compile(
+        optimizer=tf.keras.optimizers.AdamW(learning_rate=0.001, weight_decay=1e-4),
+        loss='categorical_crossentropy',
+        metrics=['accuracy']
+    )
