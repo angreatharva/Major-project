@@ -12,7 +12,7 @@ def test_tflite_model():
     output_details = interpreter.get_output_details()
 
     # Define the input size for the model
-    input_size = (48, 48)
+    input_size = (56, 56)  # Corrected input size
 
     # Define emotions
     emotions = ['angry', 'disgust', 'fear', 'happy', 'neutral', 'sad', 'surprise']
@@ -32,18 +32,19 @@ def test_tflite_model():
         if not ret:
             print("Error: Failed to capture image")
             break
-        
+
         # Create a copy of the frame for display
         display_frame = frame.copy()
-        
+
         # Resize the frame to the input size of the model
         resized_frame = cv2.resize(frame, input_size)
-        
-        # Convert the frame to RGB (OpenCV captures in BGR by default)
-        rgb_frame = cv2.cvtColor(resized_frame, cv2.COLOR_BGR2RGB)
-        
+
+        # Convert the frame to grayscale
+        gray_frame = cv2.cvtColor(resized_frame, cv2.COLOR_BGR2GRAY)
+
         # Normalize the image
-        input_data = np.expand_dims(rgb_frame, axis=0).astype(np.float32) / 255.0
+        input_data = np.expand_dims(gray_frame, axis=0).astype(np.float32) / 255.0
+        input_data = np.expand_dims(input_data, axis=-1)  # Add channel dimension
 
         # Set the input tensor
         interpreter.set_tensor(input_details[0]['index'], input_data)
@@ -53,23 +54,23 @@ def test_tflite_model():
 
         # Get the output tensor
         output_data = interpreter.get_tensor(output_details[0]['index'])
-        
+
         # Get the class with the highest probability
         predicted_class = np.argmax(output_data[0])
         confidence = output_data[0][predicted_class] * 100  # Convert to percentage
-        
+
         # Get the predicted emotion
         predicted_emotion = emotions[predicted_class]
 
         # Display the result on the frame
-        cv2.putText(display_frame, f"Emotion: {predicted_emotion}", (10, 30), 
+        cv2.putText(display_frame, f"Emotion: {predicted_emotion}", (10, 30),
                     cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
-        cv2.putText(display_frame, f"Confidence: {confidence:.2f}%", (10, 70), 
+        cv2.putText(display_frame, f"Confidence: {confidence:.2f}%", (10, 70),
                     cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
-        
+
         # Draw a box around the face if you have face detection (optional)
         # For simplicity, not including face detection here
-        
+
         # Show the frame
         cv2.imshow('Emotion Detection', display_frame)
 

@@ -44,23 +44,15 @@ def evaluate_model(model, test_dataset):
     print(f"Test Accuracy: {accuracy:.4f}")
     
     # Get predictions for confusion matrix and classification report
-    # Reset the test_dataset to ensure we process all samples
-    test_dataset.reset()
+    test_dataset.reset()  # Reset the test_dataset to ensure we process all samples
     
     # Collect all true labels and predictions
     y_true = []
     y_pred = []
-    batch_count = 0
-    max_batches = len(test_dataset)
-    
     for images, labels in test_dataset:
-        batch_count += 1
         predictions = model.predict(images, verbose=0)
         y_pred.extend(np.argmax(predictions, axis=1))
         y_true.extend(np.argmax(labels, axis=1))
-        
-        if batch_count >= max_batches:
-            break
     
     # Plot confusion matrix
     plt.figure(figsize=(10, 8))

@@ -4,3 +4,5 @@ matplotlib
 pillow
 scikit-learn
 opencv-python
+keras_preprocessing
+split-folders
