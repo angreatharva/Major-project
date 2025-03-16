@@ -12,7 +12,7 @@ def test_tflite_model():
     output_details = interpreter.get_output_details()
 
     # Define the input size for the model
-    input_size = (56, 56)  # Corrected input size
+    input_size = (48, 48)  # Corrected input size
 
     # Define emotions
     emotions = ['angry', 'disgust', 'fear', 'happy', 'neutral', 'sad', 'surprise']

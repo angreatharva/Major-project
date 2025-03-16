@@ -1,0 +1,17 @@
+tensorflow
+keras
+opencv-python
+librosa
+matplotlib
+seaborn
+scikit-learn
+pandas
+numpy
+
+# PyTorch (CPU version by default)
+torch
+torchvision
+torchaudio
+
+# Uncomment the following line if you need PyTorch with GPU support (CUDA 11.8)
+# torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118

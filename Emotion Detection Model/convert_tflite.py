@@ -2,7 +2,7 @@ import tensorflow as tf
 
 def convert_to_tflite():
     # Load the trained Keras model
-    model = tf.keras.models.load_model('./models/optimized_emotion_model.keras')  # Corrected model path
+    model = tf.keras.models.load_model('./models/fer_model.h5')  # Corrected model path
 
     # Create a TFLiteConverter instance to convert the model to TFLite format
     converter = tf.lite.TFLiteConverter.from_keras_model(model)
