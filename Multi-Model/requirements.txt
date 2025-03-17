@@ -13,5 +13,8 @@ torch
 torchvision
 torchaudio
 
-# Uncomment the following line if you need PyTorch with GPU support (CUDA 11.8)
+# Uncomment for PyTorch GPU support (CUDA 11.8)
 # torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+
+# Optional: Weights & Biases for experiment tracking
+wandb

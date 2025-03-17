@@ -5,16 +5,17 @@ from tensorflow.keras.utils import to_categorical
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from sklearn.model_selection import train_test_split
 from src.config import (
-    BATCH_SIZE, IMAGE_SIZE, EMOTION_LABELS, NUM_CLASSES,
+    BATCH_SIZE, IMAGE_SIZE, NUM_CLASSES,
     AUDIO_SAMPLE_RATE, AUDIO_DURATION, AUDIO_N_MELS,
     AUDIO_N_FFT, AUDIO_HOP_LENGTH
 )
 
 def check_directory_structure():
-    """Check and create directory structure"""
+    """Ensure required directories exist."""
     required_dirs = [
         'datasets/FER-Dataset/DATASET/train',
         'datasets/FER-Dataset/DATASET/test',
+        'datasets/VER-Dataset/audio_speech_actors_01-24',
         'models',
         'results'
     ]
@@ -25,8 +26,7 @@ def map_ravdess_label(filename):
     """
     Extract emotion label from RAVDESS filename.
     Format: modality-vocal_channel-emotion-intensity-statement-repetition-actor.wav
-    Emotion coding: 01 = neutral, 03 = happy, 04 = sad, 05 = angry, 
-                   06 = fearful, 07 = disgust, 08 = surprised
+    Emotion mapping: 01=Neutral, 03=Happy, 04=Sad, 05=Angry, 06=Fear, 07=Disgust, 08=Surprise
     """
     emotion_str = filename.split('-')[2]
     emotion_map = {
@@ -36,15 +36,15 @@ def map_ravdess_label(filename):
     return emotion_map.get(emotion_str, 0)
 
 def load_fer_data():
-    """Load FER dataset with augmentation"""
+    """Load FER dataset with advanced augmentation and preprocessing."""
     train_dir = 'datasets/FER-Dataset/DATASET/train'
     test_dir = 'datasets/FER-Dataset/DATASET/test'
 
     def preprocess_image(x):
-        # If image is already grayscale (2D or with a single channel) return as is.
+        # Convert to grayscale if needed
         if len(x.shape) == 2 or x.shape[-1] == 1:
-            return x[..., np.newaxis] if len(x.shape)==2 else x
-        elif x.shape[-1] == 3:  # Convert BGR to grayscale
+            return x[..., np.newaxis] if len(x.shape) == 2 else x
+        elif x.shape[-1] == 3:
             import cv2
             return cv2.cvtColor(x, cv2.COLOR_BGR2GRAY)[..., np.newaxis]
         else:
@@ -52,11 +52,11 @@ def load_fer_data():
 
     train_datagen = ImageDataGenerator(
         rescale=1./255,
-        rotation_range=25,
-        width_shift_range=0.25,
-        height_shift_range=0.25,
-        shear_range=0.25,
-        zoom_range=0.25,
+        rotation_range=30,
+        width_shift_range=0.3,
+        height_shift_range=0.3,
+        shear_range=0.3,
+        zoom_range=0.3,
         horizontal_flip=True,
         fill_mode='nearest',
         preprocessing_function=preprocess_image
@@ -86,16 +86,15 @@ def load_fer_data():
     return train_generator, val_generator
 
 def extract_audio_features(file_path):
-    """Extract and preprocess audio features"""
+    """Extract and preprocess Mel spectrogram features from audio files."""
     try:
         import librosa
         y, sr = librosa.load(file_path, sr=AUDIO_SAMPLE_RATE)
         y, _ = librosa.effects.trim(y, top_db=30)
         
-        # Audio augmentation
+        # Audio augmentation: noise injection and time stretching
         if np.random.rand() > 0.5:
             y += np.random.normal(0, 0.002, y.shape)
-        
         if np.random.rand() > 0.5:
             y = librosa.effects.time_stretch(y, rate=np.random.uniform(0.9, 1.1))
         
@@ -114,11 +113,11 @@ def extract_audio_features(file_path):
         return None
 
 def load_ver_data(test_size=0.2, random_state=42):
-    """Load and process VER dataset"""
+    """Load and process VER dataset into TensorFlow datasets."""
     ver_path = 'datasets/VER-Dataset/audio_speech_actors_01-24'
     if not os.path.exists(ver_path):
-        raise FileNotFoundError("VER dataset not found")
-
+        raise FileNotFoundError("VER dataset not found in the expected location.")
+    
     audio_files, labels = [], []
     for root, _, files in os.walk(ver_path):
         for file in files:
@@ -134,9 +133,11 @@ def load_ver_data(test_size=0.2, random_state=42):
     )
 
     print("Processing training audio...")
-    X_train = [extract_audio_features(f) for f in files_train if extract_audio_features(f) is not None]
+    X_train = [extract_audio_features(f) for f in files_train]
+    X_train = [x for x in X_train if x is not None]
     print("Processing test audio...")
-    X_test = [extract_audio_features(f) for f in files_test if extract_audio_features(f) is not None]
+    X_test = [extract_audio_features(f) for f in files_test]
+    X_test = [x for x in X_test if x is not None]
 
     max_time = max(x.shape[0] for x in X_train + X_test)
 
@@ -149,9 +150,9 @@ def load_ver_data(test_size=0.2, random_state=42):
     X_test = np.array([pad_features(x) for x in X_test])
 
     train_dataset = tf.data.Dataset.from_tensor_slices((X_train, y_train))
-    train_dataset = train_dataset.shuffle(1000).batch(BATCH_SIZE).prefetch(2)
+    train_dataset = train_dataset.shuffle(1000).batch(BATCH_SIZE).prefetch(tf.data.AUTOTUNE)
     
     test_dataset = tf.data.Dataset.from_tensor_slices((X_test, y_test))
-    test_dataset = test_dataset.batch(BATCH_SIZE).prefetch(2)
+    test_dataset = test_dataset.batch(BATCH_SIZE).prefetch(tf.data.AUTOTUNE)
 
     return train_dataset, test_dataset, X_test, y_test

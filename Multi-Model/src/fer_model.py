@@ -15,8 +15,7 @@ def channel_attention(input_tensor, ratio=8):
     avg_pool = Reshape((1, 1, channel))(avg_pool)
     avg_pool = shared_layer(avg_pool)
     
-    max_pool = tf.reduce_max(input_tensor, axis=[1, 2])
-    max_pool = Reshape((1, 1, channel))(max_pool)
+    max_pool = tf.reduce_max(input_tensor, axis=[1, 2], keepdims=True)
     max_pool = shared_layer(max_pool)
     
     attention = Add()([avg_pool, max_pool])
@@ -32,35 +31,39 @@ def residual_block(x, filters, kernel=3, stride=1):
     x = Conv2D(filters, kernel, padding='same')(x)
     x = BatchNormalization()(x)
     
-    if shortcut.shape[-1] != filters:
-        shortcut = Conv2D(filters, 1, strides=stride)(shortcut)
+    if shortcut.shape[-1] != filters or stride != 1:
+        shortcut = Conv2D(filters, 1, strides=stride, padding='same')(shortcut)
+        shortcut = BatchNormalization()(shortcut)
     
     x = Add()([x, shortcut])
     x = ReLU()(x)
     return x
 
 def build_fer_model():
-    """FER model with residual blocks and attention"""
+    """Enhanced FER model with multiple residual blocks and integrated channel attention."""
     inputs = Input(shape=(*IMAGE_SIZE, 1))
     
     x = Conv2D(64, 3, padding='same')(inputs)
     x = BatchNormalization()(x)
     x = ReLU()(x)
     
-    # Residual Blocks
+    # First residual block group
+    x = residual_block(x, 64)
     x = residual_block(x, 64)
     x = MaxPool2D(2)(x)
     x = channel_attention(x)
     
+    # Second residual block group
+    x = residual_block(x, 128, stride=2)
     x = residual_block(x, 128)
-    x = MaxPool2D(2)(x)
     x = channel_attention(x)
     
+    # Third residual block group
+    x = residual_block(x, 256, stride=2)
     x = residual_block(x, 256)
-    x = MaxPool2D(2)(x)
     x = channel_attention(x)
     
-    # Head
+    # Head: global pooling and dense layers with dropout for regularization
     x = GlobalAvgPool2D()(x)
     x = Dense(512, activation='relu')(x)
     x = Dropout(0.5)(x)
