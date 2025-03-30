@@ -201,7 +201,7 @@ if __name__ == '__main__':
     print("Train dataset size:", len(train_dataset))
     print("Test dataset size:", len(test_dataset))
     
-    num_epochs = 20
+    num_epochs = 50
     best_val_acc = 0.0
 
     for epoch in range(num_epochs):
